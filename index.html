@@ -92,8 +92,8 @@
           </div>
           <div class="hero-stats">
             <div class="stat-card">
-              <span class="stat-number">2+</span>
-              <span class="stat-label">Full 4K/HD Episodes</span>
+              <span class="stat-number">3</span>
+              <span class="stat-label">Full HD Episodes</span>
             </div>
             <div class="stat-card">
               <span class="stat-number">100%</span>
@@ -132,8 +132,8 @@
           <!-- Main Player Container -->
           <div class="player-container">
             <div class="video-wrapper">
-              <video id="mainVideoPlayer" controls playsinline poster="assets/images/episode2-thumbnail.png">
-                <source id="videoSource" src="assets/videos/episode2-final.mp4" type="video/mp4">
+              <video id="mainVideoPlayer" controls playsinline poster="assets/images/episode3-thumbnail.jpg">
+                <source id="videoSource" src="assets/videos/episode3-final.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -141,26 +141,26 @@
             <!-- Current Playing Video Info -->
             <div class="video-meta-box">
               <div class="video-tags-row">
-                <span class="tag tag-ep" id="nowPlayingBadge">Episode 2</span>
-                <span class="tag tag-lang">🗣️ Spoken Telugu</span>
-                <span class="tag tag-quality">✨ High Quality HD</span>
+                <span class="tag tag-ep" id="nowPlayingBadge" style="background:#ff5722;color:white;">Episode 3 (NEW!)</span>
+                <span class="tag tag-lang">🌟 English Voiceover</span>
+                <span class="tag tag-quality">✨ 1080p HD</span>
                 <span class="tag tag-age">👶 Made for Kids</span>
               </div>
 
               <h3 class="video-active-title" id="nowPlayingTitle">
-                Chunnu & Munnu Save the Space Animals! 👽🚀
+                Chunnu & Munnu in Toylandia! 🚂🧸 The Giant Teddy Bear Rescue
               </h3>
 
               <div class="moral-box" id="nowPlayingMoral">
                 <div class="moral-icon">🌟</div>
                 <div class="moral-content">
                   <strong>Moral of the Story:</strong>
-                  <p id="moralText">"It's not about who wins — helping someone who's in trouble is the real victory. A kind heart is enough, and wherever you are, you can always make a friend!"</p>
+                  <p id="moralText">"When someone feels scared and alone, standing beside them is true friendship. Big or small, when we help with all our heart, everyone becomes stronger!"</p>
                 </div>
               </div>
 
               <p class="video-active-desc" id="nowPlayingDesc">
-                Chunnu and Munnu spot a falling star in their backyard one night — but it's not a star at all! A tiny spaceship has crash-landed, and two adorable lost alien creatures need their help getting back home. Will the brothers fix the ship together?
+                A magical glowing toy train emerges from under the bed and whisks Chunnu and Munnu away to Toylandia! There they meet Honk-Honk, a giant friendly teddy bear too afraid to cross the marble canyon bridge. With quick thinking and teamwork, the brothers build a sturdy ramp to save their new friend!
               </p>
 
               <div class="player-share-row">
@@ -179,16 +179,30 @@
           <div class="playlist-sidebar">
             <div class="playlist-header">
               <h4>Choose Video</h4>
-              <span class="playlist-count">3 Videos</span>
+              <span class="playlist-count">4 Videos</span>
             </div>
 
             <div class="playlist-items">
-              <!-- Item 1: Episode 2 -->
-              <div class="playlist-item active" data-video="assets/videos/episode2-final.mp4" data-poster="assets/images/episode2-thumbnail.png" data-badge="Episode 2" data-title="Chunnu & Munnu Save the Space Animals! 👽🚀" data-moral="It's not about who wins — helping someone who's in trouble is the real victory. A kind heart is enough, and wherever you are, you can always make a friend!" data-desc="Chunnu and Munnu spot a falling star in their backyard one night — but it's not a star at all! A tiny spaceship has crash-landed, and two adorable lost alien creatures need their help getting home.">
+              <!-- Item 1: Episode 3 (NEW!) -->
+              <div class="playlist-item active" data-video="assets/videos/episode3-final.mp4" data-poster="assets/images/episode3-thumbnail.jpg" data-badge="Episode 3 (NEW!)" data-title="Chunnu & Munnu in Toylandia! 🚂🧸 The Giant Teddy Bear Rescue" data-moral="When someone feels scared and alone, standing beside them is true friendship. Big or small, when we help with all our heart, everyone becomes stronger!" data-desc="A magical glowing toy train emerges from under the bed and whisks Chunnu and Munnu away to Toylandia! There they meet Honk-Honk, a giant friendly teddy bear too afraid to cross the marble canyon bridge. With quick thinking and teamwork, the brothers build a sturdy ramp to save their new friend!">
+                <div class="item-thumb-wrap">
+                  <img src="assets/images/episode3-thumbnail.jpg" alt="Episode 3 Thumbnail" class="item-thumb">
+                  <span class="item-duration">1:55</span>
+                  <span class="now-badge">Playing</span>
+                </div>
+                <div class="item-details">
+                  <span class="item-ep" style="background:#ff5722;color:white;">NEW Ep 3</span>
+                  <h5 class="item-title">Toylandia Rescue! 🧸</h5>
+                  <p class="item-snippet">The Magic Train & Giant Bear!</p>
+                </div>
+              </div>
+
+              <!-- Item 2: Episode 2 -->
+              <div class="playlist-item" data-video="assets/videos/episode2-final.mp4" data-poster="assets/images/episode2-thumbnail.png" data-badge="Episode 2" data-title="Chunnu & Munnu Save the Space Animals! 👽🚀" data-moral="It's not about who wins — helping someone who's in trouble is the real victory. A kind heart is enough, and wherever you are, you can always make a friend!" data-desc="Chunnu and Munnu spot a falling star in their backyard one night — but it's not a star at all! A tiny spaceship has crash-landed, and two adorable lost alien creatures need their help getting home.">
                 <div class="item-thumb-wrap">
                   <img src="assets/images/episode2-thumbnail.png" alt="Episode 2 Thumbnail" class="item-thumb">
-                  <span class="item-duration">1:15</span>
-                  <span class="now-badge">Playing</span>
+                  <span class="item-duration">1:40</span>
+                  <span class="now-badge">Play</span>
                 </div>
                 <div class="item-details">
                   <span class="item-ep">Episode 2</span>
@@ -197,11 +211,11 @@
                 </div>
               </div>
 
-              <!-- Item 2: Episode 1 -->
+              <!-- Item 3: Episode 1 -->
               <div class="playlist-item" data-video="assets/videos/episode1-final.mp4" data-poster="assets/images/episode1-thumbnail.png" data-badge="Episode 1" data-title="Chunnu & Munnu Dinosaur Age Adventure! 🦖🦕" data-moral="Curiosity and bravery are wonderful, but staying united as brothers and protecting each other makes you invincible!" data-desc="A mysterious glowing portal opens in the backyard, whisking Chunnu and Munnu back in time to the prehistoric world of gentle giants and fierce T-Rexes! Watch how they work together to find their way home.">
                 <div class="item-thumb-wrap">
                   <img src="assets/images/episode1-thumbnail.png" alt="Episode 1 Thumbnail" class="item-thumb">
-                  <span class="item-duration">1:20</span>
+                  <span class="item-duration">1:40</span>
                   <span class="now-badge">Play</span>
                 </div>
                 <div class="item-details">
@@ -211,7 +225,7 @@
                 </div>
               </div>
 
-              <!-- Item 3: Channel Intro Theme -->
+              <!-- Item 4: Channel Intro Theme -->
               <div class="playlist-item" data-video="assets/videos/intro.mp4" data-poster="assets/images/logo-avatar.png" data-badge="Theme Clip" data-title="Chunnu Munnu Channel Official Animated Intro 🎵" data-moral="Play outside, discover real games, cherish your siblings and friends!" data-desc="The signature energetic animated opener featuring Chunnu & Munnu bursting with laughter, friendship, and mischief!">
                 <div class="item-thumb-wrap">
                   <img src="assets/images/logo-avatar.png" alt="Intro Thumbnail" class="item-thumb">
@@ -227,7 +241,7 @@
             </div>
 
             <div class="playlist-footer-banner">
-              <p>🔔 New episodes released regularly in native Telugu!</p>
+              <p>🔔 Full animated adventures with positive life lessons!</p>
             </div>
           </div>
         </div>
@@ -292,26 +306,26 @@
             </div>
           </div>
 
-          <!-- Card 3 (In Production) -->
-          <div class="episode-card coming-soon-card">
+          <!-- Card 3 (Released) -->
+          <div class="episode-card">
             <div class="card-thumb-container">
-              <img src="assets/images/ep3-bedroom-bg.png" alt="Episode 3 Toylandia" class="card-img">
-              <span class="card-status status-upcoming">In Production</span>
-              <div class="sneak-peek-overlay">
-                <span>🧸 Coming Soon!</span>
-              </div>
+              <img src="assets/images/episode3-thumbnail.jpg" alt="Episode 3 Toylandia" class="card-img">
+              <span class="card-status status-released" style="background:#ff5722;">New Release!</span>
+              <button class="quick-play-btn" onclick="playEpisode('assets/videos/episode3-final.mp4', 'assets/images/episode3-thumbnail.jpg', 'Episode 3 (NEW!)', 'Chunnu & Munnu in Toylandia! 🚂🧸 The Giant Teddy Bear Rescue', 'When someone feels scared and alone, standing beside them is true friendship. Big or small, when we help with all our heart, everyone becomes stronger!', 'A magical glowing toy train emerges from under the bed and whisks Chunnu and Munnu away to Toylandia! There they meet Honk-Honk, a giant friendly teddy bear too afraid to cross the marble canyon bridge. With quick thinking and teamwork, the brothers build a sturdy ramp to save their new friend!')">
+                ▶ Play Episode 3
+              </button>
             </div>
             <div class="card-body">
               <div class="card-meta">
                 <span class="card-ep-label">Episode 3</span>
-                <span class="card-pill pill-warn">Script Ready</span>
+                <span class="card-pill">English Voiceover</span>
               </div>
               <h3 class="card-title">The Great Toy Rescue (Toylandia)</h3>
               <p class="card-text">
-                The brothers travel to a floating island of forgotten toys to rescue Honk-Honk, a giant patchwork teddy bear who just needs warmth and love!
+                The brothers board a glowing midnight train to the floating toy wonderland of Toylandia! Together, they build a giant ramp to help a gentle, frightened patchwork teddy bear cross the marble canyon.
               </p>
               <div class="card-moral-tag">
-                <span>❤️ Moral:</span> Empathy, Inclusion & Care
+                <span>❤️ Moral:</span> Friendship, Empathy & Helping Others
               </div>
             </div>
           </div>
