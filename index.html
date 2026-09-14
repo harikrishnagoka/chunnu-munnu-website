@@ -45,7 +45,7 @@
         <a href="#theater" class="nav-link">Theater</a>
         <a href="#episodes" class="nav-link">Episodes</a>
         <a href="#characters" class="nav-link">Meet Brothers</a>
-        <a href="#funzone" class="nav-link">Fun Zone</a>
+        <a href="#funzone" class="nav-link">🎮 Game Zone</a>
         <a href="#about" class="nav-link">Our Story</a>
         <a href="https://www.youtube.com/@chunnumunnuchannel" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
           <svg class="yt-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
@@ -448,7 +448,110 @@
     <section class="funzone-section" id="funzone">
       <div class="container">
         <div class="section-title-wrap">
-          <span class="section-subtitle">🎮 Kids Fun Zone</span>
+          <span class="section-subtitle">🎮 Kids Game Zone</span>
+          <h2 class="section-title">Play Free Browser Games!</h2>
+          <p class="section-desc">Play right here on your computer or mobile! Pop targets with Chunnu's bow or sprint through Toylandia with Munnu!</p>
+        </div>
+
+        <!-- Arcade Machine Cabinet -->
+        <div class="arcade-cabinet">
+          <!-- Game Selection Header & Character Selector -->
+          <div class="arcade-top-bar">
+            <div class="arcade-tabs">
+              <button class="arcade-tab-btn active" id="tabArcher">
+                <span class="tab-icon">🎯</span>
+                <span class="tab-text">Chunnu's Target Archer</span>
+              </button>
+              <button class="arcade-tab-btn" id="tabRunner">
+                <span class="tab-icon">🏃‍♂️</span>
+                <span class="tab-text">Munnu's Toylandia Rush</span>
+              </button>
+            </div>
+
+            <!-- Hero Character Selector -->
+            <div class="arcade-char-selector">
+              <span class="char-sel-label">Play as:</span>
+              <button class="char-pill active" id="btnCharChunnu" title="Play as Chunnu (Yellow Shirt)">
+                👦🏽 Chunnu
+              </button>
+              <button class="char-pill" id="btnCharMunnu" title="Play as Munnu (Blue Shirt)">
+                🧒🏽 Munnu
+              </button>
+            </div>
+          </div>
+
+          <!-- Arcade HUD Display Bar -->
+          <div class="arcade-hud">
+            <div class="hud-stat-group">
+              <div class="hud-item hud-score">
+                <span class="hud-label">Score:</span>
+                <span class="hud-val" id="arcadeScore">0</span>
+              </div>
+              <div class="hud-item hud-ammo">
+                <span class="hud-label" id="labelAmmo">Arrows Left:</span>
+                <span class="hud-val" id="arcadeAmmo">10</span>
+              </div>
+              <div class="hud-item hud-combo">
+                <span class="combo-pill" id="arcadeCombo"></span>
+              </div>
+            </div>
+
+            <div class="hud-stat-group right">
+              <div class="hud-item hud-high">
+                <span class="hud-label">🏆 Best:</span>
+                <span class="hud-val" id="arcadeHighScore">0</span>
+              </div>
+              <div class="hud-actions">
+                <button class="hud-btn" id="arcadeRestartBtn" title="Restart Game">🔄 Restart</button>
+                <button class="hud-btn" id="arcadeSoundToggle" title="Toggle Sound">🔊 Sound ON</button>
+                <button class="hud-btn hud-btn-fs" id="arcadeFullscreenBtn" title="Toggle Fullscreen">⛶ Fullscreen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen / Canvas Frame -->
+          <div class="arcade-screen-wrap">
+            <canvas id="arcadeCanvas" width="800" height="500"></canvas>
+
+            <!-- Game Over / Victory Modal Overlay -->
+            <div id="arcadeGameOverModal" class="arcade-game-over-modal" style="display: none;">
+              <div class="game-over-content">
+                <div class="go-icon">🏆</div>
+                <h3 id="goTitle">Game Over!</h3>
+                <p id="goScore" class="go-score">Your Score: 0 Points!</p>
+                <div class="go-actions">
+                  <button id="goRetryBtn" class="btn btn-primary btn-arcade-retry">Play Again! 🔄</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Virtual Controls (For touch screens and runner game) -->
+          <div class="arcade-mobile-controls" id="arcadeMobileControls" style="display: none;">
+            <button id="mBtnLeft" class="vkey vkey-dir" aria-label="Move Left">◀ Left</button>
+            <div class="vkey-center-col">
+              <button id="mBtnJump" class="vkey vkey-act vkey-jump" aria-label="Jump">▲ Jump</button>
+              <button id="mBtnSlide" class="vkey vkey-act vkey-slide" aria-label="Slide">▼ Slide</button>
+            </div>
+            <button id="mBtnRight" class="vkey vkey-dir" aria-label="Move Right">Right ▶</button>
+          </div>
+
+          <!-- Instructions & Tips Bar -->
+          <div class="arcade-instructions">
+            <div class="inst-item">
+              <span class="inst-tag">🎯 Archer:</span>
+              <span>Click / Touch & <strong>drag back</strong> to aim, <strong>release</strong> to shoot! Hit moving bullseyes & balloons!</span>
+            </div>
+            <div class="inst-item">
+              <span class="inst-tag">🏃‍♂️ Rush:</span>
+              <span><strong>← / → or A / D:</strong> Switch Lanes | <strong>↑ / W / Space:</strong> Jump | <strong>↓ / S:</strong> Slide | Collect coins & powerups!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini-Quiz Divider & Title -->
+        <div class="section-title-wrap quiz-section-heading">
+          <span class="section-subtitle">✨ Interactive Mini-Quiz</span>
           <h2 class="section-title">Which Brother Are You?</h2>
           <p class="section-desc">Take our quick 3-question mini-quiz to find your adventure match!</p>
         </div>
@@ -646,5 +749,6 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="games.js"></script>
 </body>
 </html>
