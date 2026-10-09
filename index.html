@@ -522,8 +522,14 @@
             <canvas id="arcadeCanvas" width="800" height="500"></canvas>
             <canvas id="arcadeCanvas3D" width="800" height="500" style="display: none;"></canvas>
 
-            <!-- 3D Overlays: Crosshair, Scope, Kill Feed & Parachute Hint -->
-            <div id="arcade3DCrosshair" class="arcade-3d-crosshair" style="display: none;"></div>
+            <!-- 3D Overlays: Crosshair, Hit Marker, Scope, Kill Feed & Parachute Hint -->
+            <div id="arcadeCompass" class="arcade-compass-bar" style="display: none;">
+              <span>◀ WEST</span><span>•</span><span>NORTH (SAFE ZONE)</span><span>•</span><span>EAST ▶</span>
+            </div>
+            <div id="arcade3DCrosshair" class="arcade-3d-crosshair" style="display: none;">
+              <div id="arcadeHitMarker" class="arcade-hit-marker"></div>
+            </div>
+            <div id="arcadeDamageLayer" class="arcade-damage-layer"></div>
             <div id="arcade3DScope" class="arcade-3d-scope" style="display: none;"></div>
             <div id="arcadeKillFeed" class="arcade-kill-feed"></div>
             <div id="arcade3DHint" class="arcade-3d-hint" style="display: none;">🪂 PARACHUTE DROP! GLIDE & TAP TO LAND!</div>
