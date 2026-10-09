@@ -131,6 +131,110 @@ class SoundEngine {
       osc.stop(this.ctx.currentTime + 0.35);
     } catch (e) {}
   }
+
+  laser() {
+    if (this.muted) return;
+    this.init();
+    try {
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(220, this.ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.12);
+    } catch (e) {}
+  }
+
+  shotgun() {
+    if (this.muted) return;
+    this.init();
+    try {
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(320, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(60, this.ctx.currentTime + 0.22);
+      gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.22);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.22);
+    } catch (e) {}
+  }
+
+  bomb() {
+    if (this.muted) return;
+    this.init();
+    try {
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(100, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(25, this.ctx.currentTime + 0.45);
+      gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.45);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.45);
+    } catch (e) {}
+  }
+
+  hit() {
+    this.playTone(180, 'sine', 0.08, 0.25);
+  }
+
+  heal() {
+    if (this.muted) return;
+    this.init();
+    [523, 659, 784, 1046].forEach((f, i) => {
+      setTimeout(() => this.playTone(f, 'sine', 0.12, 0.2), i * 50);
+    });
+  }
+
+  drop() {
+    if (this.muted) return;
+    this.init();
+    try {
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.4);
+      gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.4);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.4);
+    } catch (e) {}
+  }
+
+  booyah() {
+    if (this.muted) return;
+    this.init();
+    const fanfare = [
+      { f: 523.25, d: 0.15, t: 0 },
+      { f: 659.25, d: 0.15, t: 140 },
+      { f: 783.99, d: 0.15, t: 280 },
+      { f: 1046.50, d: 0.45, t: 420 },
+      { f: 880.00, d: 0.20, t: 720 },
+      { f: 1046.50, d: 0.60, t: 900 }
+    ];
+    fanfare.forEach(note => {
+      setTimeout(() => this.playTone(note.f, 'triangle', note.d, 0.35), note.t);
+    });
+  }
 }
 
 const SFX = new SoundEngine();
@@ -1313,11 +1417,15 @@ class RunnerGame {
 // ==========================================
 class ArcadeHub {
   constructor() {
-    this.canvas = document.getElementById('arcadeCanvas');
-    if (!this.canvas) return;
+    this.canvas2D = document.getElementById('arcadeCanvas');
+    this.canvas3D = document.getElementById('arcadeCanvas3D');
+    if (!this.canvas2D) return;
 
-    this.archer = new ArcherGame(this.canvas);
-    this.runner = new RunnerGame(this.canvas);
+    this.archer = new ArcherGame(this.canvas2D);
+    this.runner = new RunnerGame(this.canvas2D);
+    this.toyFire = window.ToyFire3D && this.canvas3D ? new ToyFire3D(this.canvas3D) : null;
+    this.clashSquad = window.ClashSquad3D && this.canvas3D ? new ClashSquad3D(this.canvas3D) : null;
+
     this.currentGame = 'archer';
     this.currentCharacter = 'chunnu';
 
@@ -1327,13 +1435,13 @@ class ArcadeHub {
   initUI() {
     const archerTab = document.getElementById('tabArcher');
     const runnerTab = document.getElementById('tabRunner');
+    const toyFireTab = document.getElementById('tabToyFire');
+    const clashTab = document.getElementById('tabClashSquad');
 
-    if (archerTab) {
-      archerTab.addEventListener('click', () => this.switchGame('archer'));
-    }
-    if (runnerTab) {
-      runnerTab.addEventListener('click', () => this.switchGame('runner'));
-    }
+    if (archerTab) archerTab.addEventListener('click', () => this.switchGame('archer'));
+    if (runnerTab) runnerTab.addEventListener('click', () => this.switchGame('runner'));
+    if (toyFireTab) toyFireTab.addEventListener('click', () => this.switchGame('toyfire'));
+    if (clashTab) clashTab.addEventListener('click', () => this.switchGame('clash'));
 
     const charChunnu = document.getElementById('btnCharChunnu');
     const charMunnu = document.getElementById('btnCharMunnu');
@@ -1379,15 +1487,72 @@ class ArcadeHub {
       });
     }
 
+    // Virtual Buttons
     const btnLeft = document.getElementById('mBtnLeft');
     const btnRight = document.getElementById('mBtnRight');
     const btnJump = document.getElementById('mBtnJump');
     const btnSlide = document.getElementById('mBtnSlide');
+    const btnFire = document.getElementById('mBtnFire');
+    const btnScope = document.getElementById('mBtnScope');
 
-    if (btnLeft) btnLeft.addEventListener('click', () => this.runner.moveLane(-1));
-    if (btnRight) btnRight.addEventListener('click', () => this.runner.moveLane(1));
-    if (btnJump) btnJump.addEventListener('click', () => this.runner.jump());
-    if (btnSlide) btnSlide.addEventListener('click', () => this.runner.slide());
+    const handleDirPress = (dir, isDown) => {
+      if (this.currentGame === 'toyfire' && this.toyFire) {
+        if (dir === 'left') this.toyFire.keys.left = isDown;
+        if (dir === 'right') this.toyFire.keys.right = isDown;
+        if (dir === 'up') this.toyFire.keys.forward = isDown;
+        if (dir === 'down') this.toyFire.keys.backward = isDown;
+      } else if (this.currentGame === 'clash' && this.clashSquad) {
+        if (dir === 'left') this.clashSquad.keys.left = isDown;
+        if (dir === 'right') this.clashSquad.keys.right = isDown;
+        if (dir === 'up') this.clashSquad.keys.forward = isDown;
+        if (dir === 'down') this.clashSquad.keys.backward = isDown;
+      }
+    };
+
+    if (btnLeft) {
+      btnLeft.addEventListener('click', () => {
+        if (this.currentGame === 'runner') this.runner.moveLane(-1);
+      });
+      btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); handleDirPress('left', true); });
+      btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); handleDirPress('left', false); });
+    }
+
+    if (btnRight) {
+      btnRight.addEventListener('click', () => {
+        if (this.currentGame === 'runner') this.runner.moveLane(1);
+      });
+      btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); handleDirPress('right', true); });
+      btnRight.addEventListener('touchend', (e) => { e.preventDefault(); handleDirPress('right', false); });
+    }
+
+    if (btnJump) {
+      btnJump.addEventListener('click', () => {
+        if (this.currentGame === 'runner') this.runner.jump();
+      });
+      btnJump.addEventListener('touchstart', (e) => { e.preventDefault(); handleDirPress('up', true); });
+      btnJump.addEventListener('touchend', (e) => { e.preventDefault(); handleDirPress('up', false); });
+    }
+
+    if (btnSlide) {
+      btnSlide.addEventListener('click', () => {
+        if (this.currentGame === 'runner') this.runner.slide();
+      });
+      btnSlide.addEventListener('touchstart', (e) => { e.preventDefault(); handleDirPress('down', true); });
+      btnSlide.addEventListener('touchend', (e) => { e.preventDefault(); handleDirPress('down', false); });
+    }
+
+    if (btnFire) {
+      btnFire.addEventListener('click', () => {
+        if (this.currentGame === 'toyfire' && this.toyFire) this.toyFire.shoot();
+        if (this.currentGame === 'clash' && this.clashSquad) this.clashSquad.shoot();
+      });
+    }
+
+    if (btnScope) {
+      btnScope.addEventListener('click', () => {
+        if (this.currentGame === 'clash' && this.clashSquad) this.clashSquad.toggleScope();
+      });
+    }
 
     this.switchGame('archer');
   }
@@ -1405,30 +1570,69 @@ class ArcadeHub {
     this.currentGame = gameKey;
     const tabA = document.getElementById('tabArcher');
     const tabR = document.getElementById('tabRunner');
+    const tabTF = document.getElementById('tabToyFire');
+    const tabCS = document.getElementById('tabClashSquad');
+
     const mobileControls = document.getElementById('arcadeMobileControls');
+    const btnFire = document.getElementById('mBtnFire');
+    const btnScope = document.getElementById('mBtnScope');
     const labelAmmo = document.getElementById('labelAmmo');
     const modal = document.getElementById('arcadeGameOverModal');
     if (modal) modal.style.display = 'none';
 
     if (tabA) tabA.classList.toggle('active', gameKey === 'archer');
     if (tabR) tabR.classList.toggle('active', gameKey === 'runner');
+    if (tabTF) tabTF.classList.toggle('active', gameKey === 'toyfire');
+    if (tabCS) tabCS.classList.toggle('active', gameKey === 'clash');
+
+    // Stop all games
+    this.archer.stop();
+    this.runner.stop();
+    if (this.toyFire) this.toyFire.stop();
+    if (this.clashSquad) this.clashSquad.stop();
 
     if (gameKey === 'archer') {
-      this.runner.stop();
+      if (this.canvas3D) this.canvas3D.style.display = 'none';
+      if (this.canvas2D) this.canvas2D.style.display = 'block';
       if (mobileControls) mobileControls.style.display = 'none';
       if (labelAmmo) labelAmmo.textContent = 'Arrows Left:';
       const best = localStorage.getItem('chunnu_archer_best') || '0';
       const highEl = document.getElementById('arcadeHighScore');
       if (highEl) highEl.textContent = best;
       this.archer.start(this.currentCharacter);
-    } else {
-      this.archer.stop();
+    } else if (gameKey === 'runner') {
+      if (this.canvas3D) this.canvas3D.style.display = 'none';
+      if (this.canvas2D) this.canvas2D.style.display = 'block';
       if (mobileControls) mobileControls.style.display = 'flex';
+      if (btnFire) btnFire.style.display = 'none';
+      if (btnScope) btnScope.style.display = 'none';
       if (labelAmmo) labelAmmo.textContent = 'Coins:';
       const best = localStorage.getItem('munnu_rush_best') || '0';
       const highEl = document.getElementById('arcadeHighScore');
       if (highEl) highEl.textContent = best;
       this.runner.start(this.currentCharacter);
+    } else if (gameKey === 'toyfire') {
+      if (this.canvas2D) this.canvas2D.style.display = 'none';
+      if (this.canvas3D) this.canvas3D.style.display = 'block';
+      if (mobileControls) mobileControls.style.display = 'flex';
+      if (btnFire) btnFire.style.display = 'inline-flex';
+      if (btnScope) btnScope.style.display = 'none';
+      if (labelAmmo) labelAmmo.textContent = 'Alive:';
+      const best = localStorage.getItem('chunnu_toyfire_best') || '0';
+      const highEl = document.getElementById('arcadeHighScore');
+      if (highEl) highEl.textContent = best;
+      if (this.toyFire) this.toyFire.start(this.currentCharacter);
+    } else if (gameKey === 'clash') {
+      if (this.canvas2D) this.canvas2D.style.display = 'none';
+      if (this.canvas3D) this.canvas3D.style.display = 'block';
+      if (mobileControls) mobileControls.style.display = 'flex';
+      if (btnFire) btnFire.style.display = 'inline-flex';
+      if (btnScope) btnScope.style.display = 'inline-flex';
+      if (labelAmmo) labelAmmo.textContent = 'Wave:';
+      const best = localStorage.getItem('chunnu_clash3d_best') || '0';
+      const highEl = document.getElementById('arcadeHighScore');
+      if (highEl) highEl.textContent = best;
+      if (this.clashSquad) this.clashSquad.start(this.currentCharacter);
     }
   }
 
@@ -1437,8 +1641,12 @@ class ArcadeHub {
     if (modal) modal.style.display = 'none';
     if (this.currentGame === 'archer') {
       this.archer.start(this.currentCharacter);
-    } else {
+    } else if (this.currentGame === 'runner') {
       this.runner.start(this.currentCharacter);
+    } else if (this.currentGame === 'toyfire' && this.toyFire) {
+      this.toyFire.start(this.currentCharacter);
+    } else if (this.currentGame === 'clash' && this.clashSquad) {
+      this.clashSquad.start(this.currentCharacter);
     }
   }
 }

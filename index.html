@@ -460,11 +460,19 @@
             <div class="arcade-tabs">
               <button class="arcade-tab-btn active" id="tabArcher">
                 <span class="tab-icon">🎯</span>
-                <span class="tab-text">Chunnu's Target Archer</span>
+                <span class="tab-text">Target Archer</span>
               </button>
               <button class="arcade-tab-btn" id="tabRunner">
                 <span class="tab-icon">🏃‍♂️</span>
-                <span class="tab-text">Munnu's Toylandia Rush</span>
+                <span class="tab-text">Toylandia Rush</span>
+              </button>
+              <button class="arcade-tab-btn" id="tabToyFire">
+                <span class="tab-icon">🏆</span>
+                <span class="tab-text">Toy Fire 3D (Battle Royale)</span>
+              </button>
+              <button class="arcade-tab-btn" id="tabClashSquad">
+                <span class="tab-icon">💥</span>
+                <span class="tab-text">Clash Squad 3D</span>
               </button>
             </div>
 
@@ -512,6 +520,13 @@
           <!-- Screen / Canvas Frame -->
           <div class="arcade-screen-wrap">
             <canvas id="arcadeCanvas" width="800" height="500"></canvas>
+            <canvas id="arcadeCanvas3D" width="800" height="500" style="display: none;"></canvas>
+
+            <!-- 3D Overlays: Crosshair, Scope, Kill Feed & Parachute Hint -->
+            <div id="arcade3DCrosshair" class="arcade-3d-crosshair" style="display: none;"></div>
+            <div id="arcade3DScope" class="arcade-3d-scope" style="display: none;"></div>
+            <div id="arcadeKillFeed" class="arcade-kill-feed"></div>
+            <div id="arcade3DHint" class="arcade-3d-hint" style="display: none;">🪂 PARACHUTE DROP! GLIDE & TAP TO LAND!</div>
 
             <!-- Game Over / Victory Modal Overlay -->
             <div id="arcadeGameOverModal" class="arcade-game-over-modal" style="display: none;">
@@ -526,25 +541,35 @@
             </div>
           </div>
 
-          <!-- Mobile Virtual Controls (For touch screens and runner game) -->
+          <!-- Mobile Virtual Controls (For touch screens, runner, and 3D action) -->
           <div class="arcade-mobile-controls" id="arcadeMobileControls" style="display: none;">
             <button id="mBtnLeft" class="vkey vkey-dir" aria-label="Move Left">◀ Left</button>
             <div class="vkey-center-col">
-              <button id="mBtnJump" class="vkey vkey-act vkey-jump" aria-label="Jump">▲ Jump</button>
-              <button id="mBtnSlide" class="vkey vkey-act vkey-slide" aria-label="Slide">▼ Slide</button>
+              <button id="mBtnJump" class="vkey vkey-act vkey-jump" aria-label="Jump / Forward">▲ Jump</button>
+              <button id="mBtnSlide" class="vkey vkey-act vkey-slide" aria-label="Slide / Back">▼ Slide</button>
             </div>
             <button id="mBtnRight" class="vkey vkey-dir" aria-label="Move Right">Right ▶</button>
+            <button id="mBtnFire" class="vkey vkey-act vkey-fire" style="display: none;" aria-label="Fire Blaster">🔥 Fire</button>
+            <button id="mBtnScope" class="vkey vkey-act vkey-scope" style="display: none;" aria-label="Scope Zoom">🎯 Scope</button>
           </div>
 
           <!-- Instructions & Tips Bar -->
           <div class="arcade-instructions">
             <div class="inst-item">
               <span class="inst-tag">🎯 Archer:</span>
-              <span>Click / Touch & <strong>drag back</strong> to aim, <strong>release</strong> to shoot! Hit moving bullseyes & balloons!</span>
+              <span>Click / Touch & <strong>drag back</strong> to aim, <strong>release</strong> to shoot!</span>
             </div>
             <div class="inst-item">
               <span class="inst-tag">🏃‍♂️ Rush:</span>
-              <span><strong>← / → or A / D:</strong> Switch Lanes | <strong>↑ / W / Space:</strong> Jump | <strong>↓ / S:</strong> Slide | Collect coins & powerups!</span>
+              <span><strong>← / →:</strong> Lanes | <strong>↑ / Space:</strong> Jump | <strong>↓:</strong> Slide!</span>
+            </div>
+            <div class="inst-item">
+              <span class="inst-tag">🏆 Toy Fire 3D:</span>
+              <span><strong>WASD / Touch Drag:</strong> Move | <strong>Mouse Drag / Right Touch:</strong> Aim | <strong>Click / Space / 🔥:</strong> Shoot | Parachute in, avoid storm, loot crates, win <strong>BOOYAH!</strong></span>
+            </div>
+            <div class="inst-item">
+              <span class="inst-tag">💥 Clash Squad 3D:</span>
+              <span><strong>WASD:</strong> Move | <strong>Click / 🔥:</strong> Shoot | <strong>Right Click / 🎯:</strong> Scope Zoom | Defeat 10 waves!</span>
             </div>
           </div>
         </div>
@@ -748,6 +773,8 @@
     </div>
   </footer>
 
+  <script src="three.min.js"></script>
+  <script src="games3d.js"></script>
   <script src="app.js"></script>
   <script src="games.js"></script>
 </body>
