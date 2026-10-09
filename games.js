@@ -1423,8 +1423,7 @@ class ArcadeHub {
 
     this.archer = new ArcherGame(this.canvas2D);
     this.runner = new RunnerGame(this.canvas2D);
-    this.toyFire = window.ToyFire3D && this.canvas3D ? new ToyFire3D(this.canvas3D) : null;
-    this.clashSquad = window.ClashSquad3D && this.canvas3D ? new ClashSquad3D(this.canvas3D) : null;
+    this.engine3D = window.Chunnu3DManager && this.canvas3D ? new Chunnu3DManager(this.canvas3D) : null;
 
     this.currentGame = 'archer';
     this.currentCharacter = 'chunnu';
@@ -1496,16 +1495,11 @@ class ArcadeHub {
     const btnScope = document.getElementById('mBtnScope');
 
     const handleDirPress = (dir, isDown) => {
-      if (this.currentGame === 'toyfire' && this.toyFire) {
-        if (dir === 'left') this.toyFire.keys.left = isDown;
-        if (dir === 'right') this.toyFire.keys.right = isDown;
-        if (dir === 'up') this.toyFire.keys.forward = isDown;
-        if (dir === 'down') this.toyFire.keys.backward = isDown;
-      } else if (this.currentGame === 'clash' && this.clashSquad) {
-        if (dir === 'left') this.clashSquad.keys.left = isDown;
-        if (dir === 'right') this.clashSquad.keys.right = isDown;
-        if (dir === 'up') this.clashSquad.keys.forward = isDown;
-        if (dir === 'down') this.clashSquad.keys.backward = isDown;
+      if (this.engine3D) {
+        if (dir === 'left') this.engine3D.keys.left = isDown;
+        if (dir === 'right') this.engine3D.keys.right = isDown;
+        if (dir === 'up') this.engine3D.keys.forward = isDown;
+        if (dir === 'down') this.engine3D.keys.backward = isDown;
       }
     };
 
@@ -1543,14 +1537,13 @@ class ArcadeHub {
 
     if (btnFire) {
       btnFire.addEventListener('click', () => {
-        if (this.currentGame === 'toyfire' && this.toyFire) this.toyFire.shoot();
-        if (this.currentGame === 'clash' && this.clashSquad) this.clashSquad.shoot();
+        if (this.engine3D) this.engine3D.shoot();
       });
     }
 
     if (btnScope) {
       btnScope.addEventListener('click', () => {
-        if (this.currentGame === 'clash' && this.clashSquad) this.clashSquad.toggleScope();
+        if (this.engine3D) this.engine3D.toggleScope();
       });
     }
 
@@ -1588,8 +1581,7 @@ class ArcadeHub {
     // Stop all games
     this.archer.stop();
     this.runner.stop();
-    if (this.toyFire) this.toyFire.stop();
-    if (this.clashSquad) this.clashSquad.stop();
+    if (this.engine3D) this.engine3D.stop();
 
     if (gameKey === 'archer') {
       if (this.canvas3D) this.canvas3D.style.display = 'none';
@@ -1617,11 +1609,11 @@ class ArcadeHub {
       if (mobileControls) mobileControls.style.display = 'flex';
       if (btnFire) btnFire.style.display = 'inline-flex';
       if (btnScope) btnScope.style.display = 'none';
-      if (labelAmmo) labelAmmo.textContent = 'Alive:';
+      if (labelAmmo) labelAmmo.textContent = 'Buddies Left:';
       const best = localStorage.getItem('chunnu_toyfire_best') || '0';
       const highEl = document.getElementById('arcadeHighScore');
       if (highEl) highEl.textContent = best;
-      if (this.toyFire) this.toyFire.start(this.currentCharacter);
+      if (this.engine3D) this.engine3D.startToyFire(this.currentCharacter);
     } else if (gameKey === 'clash') {
       if (this.canvas2D) this.canvas2D.style.display = 'none';
       if (this.canvas3D) this.canvas3D.style.display = 'block';
@@ -1632,7 +1624,7 @@ class ArcadeHub {
       const best = localStorage.getItem('chunnu_clash3d_best') || '0';
       const highEl = document.getElementById('arcadeHighScore');
       if (highEl) highEl.textContent = best;
-      if (this.clashSquad) this.clashSquad.start(this.currentCharacter);
+      if (this.engine3D) this.engine3D.startClashSquad(this.currentCharacter);
     }
   }
 
@@ -1643,10 +1635,10 @@ class ArcadeHub {
       this.archer.start(this.currentCharacter);
     } else if (this.currentGame === 'runner') {
       this.runner.start(this.currentCharacter);
-    } else if (this.currentGame === 'toyfire' && this.toyFire) {
-      this.toyFire.start(this.currentCharacter);
-    } else if (this.currentGame === 'clash' && this.clashSquad) {
-      this.clashSquad.start(this.currentCharacter);
+    } else if (this.currentGame === 'toyfire' && this.engine3D) {
+      this.engine3D.startToyFire(this.currentCharacter);
+    } else if (this.currentGame === 'clash' && this.engine3D) {
+      this.engine3D.startClashSquad(this.currentCharacter);
     }
   }
 }
